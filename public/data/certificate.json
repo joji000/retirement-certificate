@@ -1,0 +1,49 @@
+{
+  "id": "40565",
+  "projectId": "137",
+  "title": "Carbon Retirement Certificate",
+  "amount": {
+    "value": 1,
+    "unit": "tonne"
+  },
+  "retirementDate": "31 Mar 2025",
+  "retirementTime": "15:43:37",
+  "protocol": "Toucan Protocol",
+  "category": "Renewable Energy",
+  "standard": "VCS",
+  "retiredBy": "0x8ce5...95f8",
+  "beneficiary": {
+    "name": "โดย เจริญ",
+    "walletAddress": "0x5266...4ee6"
+  },
+  "creditSource": {
+    "name": "48 MW Houqiao Hydropower Project, Yunnan, China",
+    "icon": "⚡",
+    "color": "yellow"
+  },
+  "quote": {
+    "text": "พลังงานรม 1 ตัน โดย บริษัท โดยพลาดาพ จำกัด",
+    "author": "โดย เจริญ",
+    "avatar": "โ"
+  },
+  "retirementDetails": {
+    "creditCategory": "Renewable Energy",
+    "amountRetired": "1 TCO2",
+    "retiredOn": "31 Mar 2025, 15:43:37"
+  },
+  "onChainDetails": {
+    "retiringEntity": "0x8ce5...95f8",
+    "retirementTransaction": "0x202f...950e",
+    "projectSpecificToken": "TCO2-VCS-192-2008",
+    "beneficiaryWallet": "0x5266...4ee6",
+    "tokenSmartContract": "0x0576...97c3"
+  },
+  "projectDetails": {
+    "carbonStandard": "Verified Carbon Standard",
+    "projectLocation": "China, Asia",
+    "projectId": "VCS-192",
+    "vintage": "2008",
+    "methodology": "ACM0002"
+  },
+  "backgroundImage": "/images/wind-farm-bg.png"
+}
