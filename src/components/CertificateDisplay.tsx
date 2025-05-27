@@ -86,6 +86,25 @@ export function CertificateDisplay() {
     );
   }
 
+  // Safely access nested fields
+  const { 
+    backgroundImage,
+    title,
+    amount,
+    retirementDate,
+    retirementTime,
+    protocol,
+    category,
+    standard,
+    retiredBy,
+    beneficiary,
+    creditSource,
+    quote,
+    retirementDetails,
+    onChainDetails,
+    projectDetails
+  } = certificateData;
+
   return (
     <div className="bg-white md:rounded-xl md:shadow-xsm md:overflow-hidden -mx-6 md:mx-0 p-6">
       <div className="space-y-6">
@@ -94,61 +113,73 @@ export function CertificateDisplay() {
           <div
             className="min-h-[656px] md:min-h-[600px] text-white bg-cover bg-center relative"
             style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${certificateData.backgroundImage}')`,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${backgroundImage ?? ""}')`,
             }}
           >
             <div className="min-h-[656px] md:min-h-[600px] flex flex-col justify-between p-6 pb-20 md:p-8 md:pb-10 xl:p-12 xl:pb-10 gap-6 md:gap-8 xl:gap-12 w-full h-full">
               <div className="z-10 flex justify-between items-start">
                 <h1 className="text-3xl font-bold mb-2">
-                  {certificateData.title}
+                  {title}
                 </h1>
-                <div className="w-16 h-16 border-2 border-white/30 rounded-full flex items-center justify-center">
-                  <span className="text-xs">CERT</span>
+                <div className="w-[96px] h-[96px] md:w-[128px] md:h-[128px] rounded-full flex items-center justify-center">
+                  <img
+                    src="/icons/circle-label.svg"
+                    alt="Certificate Stamp"
+                    className="w-full h-full filter invert brightness-0"
+                  />
                 </div>
               </div>
               <div className="z-10 gap-2">
                 <div className="text-4xl font-bold mb-2">
-                  {certificateData.amount.value} {certificateData.amount.unit}
+                  {amount?.value} {amount?.unit}
                 </div>
                 <p className="text-lg">
                   of carbon credits have been retired on{" "}
-                  {certificateData.retirementDate} via{" "}
-                  {certificateData.protocol}
+                  {retirementDate} via{" "}
+                  {protocol}
                 </p>
               </div>
               <div className="z-10 w-full flex gap-6 justify-between pr-10">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-white/20 rounded flex items-center justify-center">
-                    <span className="text-xs">🌱</span>
+                  <div className="w-10 h-10 flex items-center justify-center">
+                    <img
+                      src='/icons/renewable-energy.svg'
+                      alt="Renewable Energy Icon"
+                      className="w-10 h-10 filter invert brightness-0"
+                    />
                   </div>
                   <div>
                     <div className="text-xs">Category</div>
                     <div className="font-medium">
-                      {certificateData.category}
+                      {category}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-white/20 rounded flex items-center justify-center">
-                    <span className="text-xs">✓</span>
+                  <div className="w-10 h-10 flex items-center justify-center">
+                    <img
+                      src='/icons/project-icon.svg'
+                      alt="Renewable Energy Icon"
+                      className="w-10 h-10 filter invert brightness-0"
+                    />
                   </div>
                   <div>
                     <div className="text-xs">Standard</div>
                     <div className="font-medium">
-                      {certificateData.standard}
+                      {standard}
                     </div>
                   </div>
                 </div>
                 <div>
                   <div className="text-xs">Retired by</div>
                   <div className="font-medium">
-                    {shortenAddress(certificateData.retiredBy)}
+                    {shortenAddress(retiredBy)}
                   </div>
                 </div>
                 <div>
                   <div className="text-xs">Beneficiary</div>
                   <div className="font-medium">
-                    {certificateData.beneficiary.name}
+                    {beneficiary?.name}
                   </div>
                 </div>
               </div>
@@ -164,24 +195,29 @@ export function CertificateDisplay() {
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center bg-yellow-300`}
                 >
-                  <span className="text-white font-bold">NaN</span>
+                  <img
+                    src="/icons/profile-icon.svg"
+                    alt="Profile Icon"
+                  />
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Credit source</div>
                   <div className="font-semibold">
-                    {certificateData.creditSource}
+                    {creditSource}
                   </div>
                 </div>
               </div>
-              <Link
-                href={certificateData.projectDetails.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="outline" size="sm">
-                  See project details
-                </Button>
-              </Link>
+              {projectDetails?.url && (
+                <Link
+                  href={projectDetails.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="outline" size="sm">
+                    See project details
+                  </Button>
+                </Link>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -190,17 +226,17 @@ export function CertificateDisplay() {
         <Card>
           <CardContent className="p-8 text-center">
             <blockquote className="text-xl text-gray-700 mb-4">
-              "{certificateData.quote}"
+              "{quote}"
             </blockquote>
             <div className="flex justify-center">
               <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium">
-                  {certificateData.beneficiary.name[0]}
+                  {beneficiary?.name?.[0]}
                 </span>
               </div>
             </div>
             <div className="text-sm text-gray-600 mt-2">
-              {certificateData.beneficiary.name}
+              {beneficiary?.name}
             </div>
           </CardContent>
         </Card>
@@ -211,25 +247,19 @@ export function CertificateDisplay() {
             <h3 className="text-lg font-semibold mb-4">Retirement Details</h3>
             <div className="grid grid-cols-3 gap-6">
               <DetailItem
-                icon="🌱"
-                color="green-600"
-                bg="green-100"
+                icon="renewable-energy"
                 label="Credit category"
-                value={certificateData.retirementDetails.creditCategory}
+                value={retirementDetails?.creditCategory}
               />
               <DetailItem
-                icon="⏰"
-                color="blue-600"
-                bg="blue-100"
+                icon="amountretire"
                 label="Amount retired"
-                value={certificateData.retirementDetails.amountRetired}
+                value={retirementDetails?.amountRetired}
               />
               <DetailItem
-                icon="📅"
-                color="purple-600"
-                bg="purple-100"
+                icon="certificate"
                 label="Retired on"
-                value={`${certificateData.retirementDate}, ${certificateData.retirementTime}`}
+                value={`${retirementDate}, ${retirementTime}`}
               />
             </div>
           </CardContent>
@@ -241,87 +271,77 @@ export function CertificateDisplay() {
             <h3 className="text-lg font-semibold mb-4">On-chain Details</h3>
             <div className="grid grid-cols-3 gap-6">
               <DetailItem
-                icon="🔗"
-                color="gray-600"
-                bg="gray-100"
+                icon="wallet"
                 label="Retiring Entity"
                 value={
                   <Link
-                    href={`https://polygonscan.com/address/${certificateData.retiredBy}`}
+                    href={`https://polygonscan.com/address/${retiredBy}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 underline"
+                    className="hover:underline"
                   >
-                    {shortenAddress(certificateData.retiredBy)}
+                    {shortenAddress(retiredBy)}
                   </Link>
                 }
               />
               <DetailItem
-                icon="📄"
-                color="purple-600"
-                bg="purple-100"
+                icon="polygon"
                 label="Retirement transaction"
                 value={
-                  <Link
-                    href={`https://polygonscan.com/tx/${certificateData.onChainDetails.retirementTransaction}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline"
-                  >
-                    {shortenAddress(
-                      certificateData.onChainDetails.retirementTransaction
-                    )}
-                  </Link>
+                  onChainDetails?.retirementTransaction ? (
+                    <Link
+                      href={`https://polygonscan.com/tx/${onChainDetails.retirementTransaction}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {shortenAddress(onChainDetails.retirementTransaction)}
+                    </Link>
+                  ) : "-"
                 }
               />
               <DetailItem
-                icon="🎯"
-                color="green-600"
-                bg="green-100"
+                icon="token-icon"
                 label="Project-specific token"
-                value={certificateData.onChainDetails.projectSpecificToken}
+                value={onChainDetails?.projectSpecificToken}
               />
             </div>
             <div className="grid grid-cols-3 gap-6 mt-4">
               <DetailItem
-                icon="👤"
-                color="blue-600"
-                bg="blue-100"
+                icon="user"
                 label="Beneficiary"
-                value={certificateData.beneficiary.name}
+                value={beneficiary?.name}
               />
               <DetailItem
-                icon="💰"
-                color="purple-600"
-                bg="purple-100"
+                icon="polygon"
                 label="Beneficiary wallet address"
                 value={
-                  <Link
-                    href={`https://polygonscan.com/address/${certificateData.beneficiary.walletAddress}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline"
-                  >
-                    {shortenAddress(certificateData.beneficiary.walletAddress)}
-                  </Link>
+                  beneficiary?.walletAddress ? (
+                    <Link
+                      href={`https://polygonscan.com/address/${beneficiary.walletAddress}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {shortenAddress(beneficiary.walletAddress)}
+                    </Link>
+                  ) : "-"
                 }
               />
               <DetailItem
-                icon="📋"
-                color="green-600"
-                bg="green-100"
+                icon="token-contract"
                 label="TCO2 token smart contract"
                 value={
-                  <Link
-                    href={`https://polygonscan.com/address/${certificateData.onChainDetails.tokenSmartContract}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline"
-                  >
-                    {shortenAddress(
-                      certificateData.onChainDetails.tokenSmartContract
-                    )}
-                  </Link>
+                  onChainDetails?.tokenSmartContract ? (
+                    <Link
+                      href={`https://polygonscan.com/address/${onChainDetails.tokenSmartContract}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {shortenAddress(onChainDetails.tokenSmartContract)}
+                    </Link>
+                  ) : "-"
                 }
               />
             </div>
@@ -335,46 +355,52 @@ export function CertificateDisplay() {
             <div className="grid grid-cols-2 gap-8">
               <div className="space-y-4">
                 <DetailItem
-                  icon="✓"
-                  color="green-600"
-                  bg="green-100"
+                  icon="project-icon"
                   label="Carbon standard"
-                  value={certificateData.projectDetails.carbonStandard}
+                  value={projectDetails?.carbonStandard}
                 />
                 <div>
-                  <DetailItem
-                    icon=""
-                    color=""
-                    bg=""
-                    label="Project location"
-                    value={certificateData.projectDetails.projectLocation}
-                  />
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 flex items-center justify-center"></div>
+                    <div>
+                      <div className="text-sm text-gray-500">
+                        Project location
+                      </div>
+                      <div className={"font-medium "}>
+                        {projectDetails?.projectLocation}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="space-y-4">
                 <div>
                   <div className="text-sm text-gray-500">Project ID</div>
-                  <div className="font-medium text-blue-600 underline">
-                    <Link
-                      href={certificateData.projectDetails.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-blue-600 flex items-center gap-1"
-                    >
-                      {certificateData.projectDetails.projectId}
-                    </Link>
+                  <div className="font-medium">
+                    {projectDetails?.url ? (
+                      <Link
+                        href={projectDetails.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline flex items-center gap-1"
+                      >
+                        {projectDetails.projectId}
+                      </Link>
+                    ) : (
+                      projectDetails?.projectId
+                    )}
                   </div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Vintage</div>
                   <div className="font-medium">
-                    {certificateData.projectDetails.vintage}
+                    {projectDetails?.vintage}
                   </div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Methodology</div>
                   <div className="font-medium">
-                    {certificateData.projectDetails.methodology}
+                    {projectDetails?.methodology}
                   </div>
                 </div>
               </div>

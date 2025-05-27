@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 32">
+    <symbol xmlns="http://www.w3.org/2000/svg" id="a" fill="none" viewBox="0 0 33 32">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.2"
+            d="M15.333 3.244a2 2 0 0 1 2 0l9.547 5.512a2 2 0 0 1 1 1.732v11.024a2 2 0 0 1-1 1.732l-9.547 5.512a2 2 0 0 1-2 0l-9.547-5.512a2 2 0 0 1-1-1.732V10.488a2 2 0 0 1 1-1.732z" />
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.2"
+            d="M20.105 12.229a5.333 5.333 0 1 1-7.543 7.542 5.333 5.333 0 0 1 7.543-7.542" />
+    </symbol>
+    <use href="#a" />
+</svg>
