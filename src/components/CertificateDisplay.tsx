@@ -32,6 +32,8 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
     if (!certificateRef.current || !certificateData) return;
     setDownloading(true);
     try {
+      const width = 1230 * 0.26458333333333334;
+      const height = 600 * 0.26458333333333334;
       const canvas = await html2canvas(certificateRef.current, {
         scale: 2,
         useCORS: true,
@@ -42,9 +44,9 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
-        format: [canvas.width, canvas.height],
+        format: [width, height],
       });
-      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.addImage(imgData, "PNG", 0, 0, width, height);
       pdf.save(`carbon-retirement-certificate-${certificateData.id}.pdf`);
       toast.success("Certificate downloaded!");
     } catch (error) {
@@ -104,7 +106,7 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                   <img
                     src="/icons/circle-label.svg"
                     alt="Certificate Stamp"
-                    className="w-full h-full filter invert brightness-0"
+                    className="w-full h-full"
                   />
                 </div>
               </div>
@@ -122,9 +124,9 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 flex items-center justify-center">
                     <img
-                      src='/icons/renewable-energy.svg'
+                      src='/icons/renewable-icon-white.png'
                       alt="Renewable Energy Icon"
-                      className="w-10 h-10 filter invert brightness-0"
+                      className="w-full h-full"
                     />
                   </div>
                   <div>
@@ -137,9 +139,9 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 flex items-center justify-center">
                     <img
-                      src='/icons/project-icon.svg'
-                      alt="Renewable Energy Icon"
-                      className="w-10 h-10 filter invert brightness-0"
+                      src='/icons/project-icon-white.png'
+                      alt="Project Icon"
+                      className="w-full h-full"
                     />
                   </div>
                   <div>
