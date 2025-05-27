@@ -1,7 +1,7 @@
 import React from "react";
 
 interface DetailItemProps {
-  icon: string; // SVG filename without extension, e.g. "token-contract"
+  icon: string;
   label: string;
   value: React.ReactNode;
   valueClass?: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,22 +16,17 @@ function shortenAddress(addr: string) {
   return addr.slice(0, 6) + "…" + addr.slice(-4);
 }
 
-export function CertificateDisplay() {
-  const [certificateData, setCertificateData] =
-    useState<CertificateData | null>(null);
-  const [loading, setLoading] = useState(true);
+export function CertificateDisplay({ certificateData }: { certificateData: CertificateData }) {
   const [downloading, setDownloading] = useState(false);
   const certificateRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    fetch("/data/certificate.json")
-      .then((res) => res.json())
-      .then(setCertificateData)
-      .catch((err) => {
-        console.error("Error fetching certificate data:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  if (!certificateData) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">Failed to load certificate data</p>
+      </div>
+    );
+  }
 
   const downloadPDF = async () => {
     if (!certificateRef.current || !certificateData) return;
@@ -69,22 +64,6 @@ export function CertificateDisplay() {
       toast.error("Failed to copy URL.");
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (!certificateData) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-gray-500">Failed to load certificate data</p>
-      </div>
-    );
-  }
 
   // Safely access nested fields
   const { 

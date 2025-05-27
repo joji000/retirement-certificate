@@ -1,0 +1,38 @@
+{
+  "id": "40566",
+  "title": "Carbon Retirement Certificate",
+  "amount": {
+    "value": 5,
+    "unit": "tonne"
+  },
+  "retirementDate": "12 Apr 2025",
+  "retirementTime": "10:15:22",
+  "protocol": "C3 Protocol",
+  "category": "Forestry",
+  "standard": "Gold Standard",
+  "retiredBy": "0xA1b2C3d4E5f678901234567890abcdef12345678",
+  "beneficiary": {
+    "name": "Alice Smith",
+    "walletAddress": "0x1234567890abcdef1234567890abcdef12345678"
+  },
+  "creditSource": "Amazon Rainforest Preservation Project, Brazil",
+  "quote": "Preserving the lungs of the Earth for future generations.",
+  "retirementDetails": {
+    "creditCategory": "Forestry",
+    "amountRetired": "5 TCO2"
+  },
+  "onChainDetails": {
+    "retirementTransaction": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef",
+    "projectSpecificToken": "TCO2-GS-101-2015",
+    "tokenSmartContract": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdef"
+  },
+  "projectDetails": {
+    "carbonStandard": "Gold Standard",
+    "projectLocation": "Brazil, South America",
+    "projectId": "GS-101",
+    "vintage": "2015",
+    "methodology": "GS0001",
+    "url": "https://app.c3.earth/explorer/project/GS-101"
+  },
+  "backgroundImage": "https://images.unsplash.com/photo-1464983953574-0892a716854b"
+}
