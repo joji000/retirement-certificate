@@ -16,7 +16,11 @@ function shortenAddress(addr: string) {
   return addr.slice(0, 6) + "…" + addr.slice(-4);
 }
 
-export function CertificateDisplay({ certificateData }: { certificateData: CertificateData }) {
+export function CertificateDisplay({
+  certificateData,
+}: {
+  certificateData: CertificateData;
+}) {
   const [downloading, setDownloading] = useState(false);
   const certificateRef = useRef<HTMLDivElement>(null);
 
@@ -67,8 +71,7 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
     }
   };
 
-  // Safely access nested fields
-  const { 
+  const {
     backgroundImage,
     title,
     amount,
@@ -83,7 +86,7 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
     quote,
     retirementDetails,
     onChainDetails,
-    projectDetails
+    projectDetails,
   } = certificateData;
 
   return (
@@ -94,14 +97,14 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
           <div
             className="min-h-[656px] md:min-h-[600px] text-white bg-cover bg-center relative"
             style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${backgroundImage ?? ""}')`,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${
+                backgroundImage ?? ""
+              }')`,
             }}
           >
             <div className="min-h-[656px] md:min-h-[600px] flex flex-col justify-between p-6 pb-20 md:p-8 md:pb-10 xl:p-12 xl:pb-10 gap-6 md:gap-8 xl:gap-12 w-full h-full">
               <div className="z-10 flex justify-between items-start">
-                <h1 className="text-3xl font-bold mb-2">
-                  {title}
-                </h1>
+                <h1 className="text-3xl font-bold mb-2">{title}</h1>
                 <div className="w-[96px] h-[96px] md:w-[128px] md:h-[128px] rounded-full flex items-center justify-center">
                   <img
                     src="/icons/circle-label.svg"
@@ -115,8 +118,7 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                   {amount?.value} {amount?.unit}
                 </div>
                 <p className="text-lg">
-                  of carbon credits have been retired on{" "}
-                  {retirementDate} via{" "}
+                  of carbon credits have been retired on {retirementDate} via{" "}
                   {protocol}
                 </p>
               </div>
@@ -124,44 +126,36 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 flex items-center justify-center">
                     <img
-                      src='/icons/renewable-icon-white.png'
+                      src="/icons/renewable-icon-white.png"
                       alt="Renewable Energy Icon"
                       className="w-full h-full"
                     />
                   </div>
                   <div>
                     <div className="text-xs">Category</div>
-                    <div className="font-medium">
-                      {category}
-                    </div>
+                    <div className="font-medium">{category}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 flex items-center justify-center">
                     <img
-                      src='/icons/project-icon-white.png'
+                      src="/icons/project-icon-white.png"
                       alt="Project Icon"
                       className="w-full h-full"
                     />
                   </div>
                   <div>
                     <div className="text-xs">Standard</div>
-                    <div className="font-medium">
-                      {standard}
-                    </div>
+                    <div className="font-medium">{standard}</div>
                   </div>
                 </div>
                 <div>
                   <div className="text-xs">Retired by</div>
-                  <div className="font-medium">
-                    {shortenAddress(retiredBy)}
-                  </div>
+                  <div className="font-medium">{shortenAddress(retiredBy)}</div>
                 </div>
                 <div>
                   <div className="text-xs">Beneficiary</div>
-                  <div className="font-medium">
-                    {beneficiary?.name}
-                  </div>
+                  <div className="font-medium">{beneficiary?.name}</div>
                 </div>
               </div>
             </div>
@@ -176,16 +170,11 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center bg-yellow-300`}
                 >
-                  <img
-                    src="/icons/profile-icon.svg"
-                    alt="Profile Icon"
-                  />
+                  <img src="/icons/profile-icon.svg" alt="Profile Icon" />
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Credit source</div>
-                  <div className="font-semibold">
-                    {creditSource}
-                  </div>
+                  <div className="font-semibold">{creditSource}</div>
                 </div>
               </div>
               {projectDetails?.url && (
@@ -256,7 +245,7 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 label="Retiring Entity"
                 value={
                   <Link
-                    href={`https://polygonscan.com/address/${retiredBy}`}
+                    href={` https://exp.co2e.cc/address/${retiredBy}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline"
@@ -271,14 +260,16 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 value={
                   onChainDetails?.retirementTransaction ? (
                     <Link
-                      href={`https://polygonscan.com/tx/${onChainDetails.retirementTransaction}`}
+                      href={` https://exp.co2e.cc/tx/${onChainDetails.retirementTransaction}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
                       {shortenAddress(onChainDetails.retirementTransaction)}
                     </Link>
-                  ) : "-"
+                  ) : (
+                    "-"
+                  )
                 }
               />
               <DetailItem
@@ -299,14 +290,16 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 value={
                   beneficiary?.walletAddress ? (
                     <Link
-                      href={`https://polygonscan.com/address/${beneficiary.walletAddress}`}
+                      href={` https://exp.co2e.cc/address/${beneficiary.walletAddress}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
                       {shortenAddress(beneficiary.walletAddress)}
                     </Link>
-                  ) : "-"
+                  ) : (
+                    "-"
+                  )
                 }
               />
               <DetailItem
@@ -315,14 +308,16 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
                 value={
                   onChainDetails?.tokenSmartContract ? (
                     <Link
-                      href={`https://polygonscan.com/address/${onChainDetails.tokenSmartContract}`}
+                      href={` https://exp.co2e.cc/address/${onChainDetails.tokenSmartContract}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
                       {shortenAddress(onChainDetails.tokenSmartContract)}
                     </Link>
-                  ) : "-"
+                  ) : (
+                    "-"
+                  )
                 }
               />
             </div>
@@ -333,55 +328,71 @@ export function CertificateDisplay({ certificateData }: { certificateData: Certi
         <Card>
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-4">Project Details</h3>
-            <div className="grid grid-cols-2 gap-8">
-              <div className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+              {/* Carbon standard */}
+              <div className="flex flex-col gap-2">
                 <DetailItem
                   icon="project-icon"
                   label="Carbon standard"
                   value={projectDetails?.carbonStandard}
                 />
-                <div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 flex items-center justify-center"></div>
-                    <div>
-                      <div className="text-sm text-gray-500">
-                        Project location
-                      </div>
-                      <div className={"font-medium "}>
-                        {projectDetails?.projectLocation}
-                      </div>
+              </div>
+              {/* Project ID */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center"></div>
+                  <div>
+                    <div className="text-sm text-gray-500">Project ID</div>
+                    <div className="font-medium">
+                      {projectDetails?.url ? (
+                        <Link
+                          href={projectDetails.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline flex items-center gap-1"
+                        >
+                          {projectDetails.projectId}
+                        </Link>
+                      ) : (
+                        projectDetails?.projectId
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-sm text-gray-500">Project ID</div>
-                  <div className="font-medium">
-                    {projectDetails?.url ? (
-                      <Link
-                        href={projectDetails.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline flex items-center gap-1"
-                      >
-                        {projectDetails.projectId}
-                      </Link>
-                    ) : (
-                      projectDetails?.projectId
-                    )}
+              {/* Vintage */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center"></div>
+                  <div>
+                    <div className="text-sm text-gray-500">Vintage</div>
+                    <div className="font-medium">{projectDetails?.vintage}</div>
                   </div>
                 </div>
-                <div>
-                  <div className="text-sm text-gray-500">Vintage</div>
-                  <div className="font-medium">
-                    {projectDetails?.vintage}
+              </div>
+              {/* Project location*/}
+              <div className="flex flex-col gap-2 md:row-start-2 md:col-start-1">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center"></div>
+                  <div>
+                    <div className="text-sm text-gray-500">
+                      Project location
+                    </div>
+                    <div className="font-medium">
+                      {projectDetails?.projectLocation}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <div className="text-sm text-gray-500">Methodology</div>
-                  <div className="font-medium">
-                    {projectDetails?.methodology}
+              </div>
+              {/* Methodology*/}
+              <div className="flex flex-col gap-2 md:row-start-2 md:col-start-2 md:col-span-2 col-span-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center"></div>
+                  <div>
+                    <div className="text-sm text-gray-500">Methodology</div>
+                    <div className="font-medium">
+                      {projectDetails?.methodology}
+                    </div>
                   </div>
                 </div>
               </div>

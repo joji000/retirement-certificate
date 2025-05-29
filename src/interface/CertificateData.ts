@@ -1,7 +1,8 @@
 export interface CertificateData {
   id: string;
+  backgroundImage: string;
   title: string;
-  amount: { value: number; unit: string };
+  amount: { value: string; unit: string };
   retirementDate: string;
   retirementTime: string;
   protocol: string;
@@ -11,10 +12,7 @@ export interface CertificateData {
   beneficiary: { name: string; walletAddress: string };
   creditSource: string;
   quote: string;
-  retirementDetails: {
-    creditCategory: string;
-    amountRetired: string;
-  };
+  retirementDetails: { creditCategory: string; amountRetired: string };
   onChainDetails: {
     retirementTransaction: string;
     projectSpecificToken: string;
@@ -28,5 +26,4 @@ export interface CertificateData {
     methodology: string;
     url: string;
   };
-  backgroundImage: string;
 }
