@@ -36,8 +36,9 @@ export default async function CertDetailPage({
   const transfer1 = txData.token_transfers[1] || {};
   const metadata = transfer0?.total?.token_instance?.metadata || {};
   const attributes = metadata.attributes || [];
-  const projectId = getAttribute(attributes, "Project ID");
-  const vintage = getAttribute(attributes, "Vintage");
+  const rawStandard = getAttribute(attributes, "Carbon standard");
+  const standard =
+    rawStandard === "Verified Carbon Standard" ? "VCS" : rawStandard;
 
   const certificateData = {
     id,
@@ -53,7 +54,7 @@ export default async function CertDetailPage({
       : "",
     protocol: transfer0.token?.symbol || "",
     category: getAttribute(attributes, "Credit category"),
-    standard: getAttribute(attributes, "Carbon standard"),
+    standard,
     retiredBy: txData.from?.hash || "",
     beneficiary: {
       name: "",
@@ -67,15 +68,14 @@ export default async function CertDetailPage({
     },
     onChainDetails: {
       retirementTransaction: txData.hash || "",
-      projectSpecificToken:
-        projectId && vintage ? `CO2E-${projectId}-${vintage}` : "",
+      projectSpecificToken: getAttribute(attributes, "Project ID"),
       tokenSmartContract: transfer1.token?.address || "",
     },
     projectDetails: {
       carbonStandard: getAttribute(attributes, "Carbon standard"),
       projectLocation: getAttribute(attributes, "Project location"),
-      projectId,
-      vintage,
+      projectId: getAttribute(attributes, "Project ID"),
+      vintage: getAttribute(attributes, "Vintage"),
       methodology: getAttribute(attributes, "Methodology"),
       url: getAttribute(attributes, "Retirement Certificate"),
     },
