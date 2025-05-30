@@ -7,7 +7,7 @@ export default async function Page() {
   const certificates = await Promise.all(
     ids.map(async (id) => {
       const cert = await getCertificateById(id);
-      // Get transaction hash and transaction data
+      
       let retiredBy = "-";
       try {
         const txHash = await getCertificateTransactionHash(id);
@@ -16,7 +16,7 @@ export default async function Page() {
           retiredBy = txData?.from?.hash || "-";
         }
       } catch (e) {
-        // handle error if needed
+        throw new Error(`Failed to fetch transaction for certificate ${id}: ${e}`);
       }
       return { ...cert, retiredBy };
     })

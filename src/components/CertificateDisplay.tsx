@@ -304,7 +304,7 @@ export function CertificateDisplay({
               />
               <DetailItem
                 icon="token-contract"
-                label="TCO2 token smart contract"
+                label="CO2E token smart contract"
                 value={
                   onChainDetails?.tokenSmartContract ? (
                     <Link
