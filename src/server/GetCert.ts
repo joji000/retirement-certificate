@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_BLOCKSCOUT_URL!;
-const tokenAddress = '0x3224304c75C5118af069bA7ce0b290aCd067E46E'
+const tokenAddress = '0xb6c5c0d3Ab249793dc206B37f9EA41E22B5DC0b5'
 
 export async function getCertificateIds(): Promise<string[]> {
   const res = await axios.get(`${API_URL}/tokens/${tokenAddress}/instances`);

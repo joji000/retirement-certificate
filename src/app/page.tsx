@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCertificateIds, getCertificateById } from "@/server/GetCert";
+import { getCertificateIds, getCertificateById, getCertificateTransactionHash, getCertByTxHash } from "@/server/GetCert";
 
 export default async function Page() {
   const ids = await getCertificateIds();
@@ -7,7 +7,18 @@ export default async function Page() {
   const certificates = await Promise.all(
     ids.map(async (id) => {
       const cert = await getCertificateById(id);
-      return cert;
+      // Get transaction hash and transaction data
+      let retiredBy = "-";
+      try {
+        const txHash = await getCertificateTransactionHash(id);
+        if (txHash) {
+          const txData = await getCertByTxHash(txHash);
+          retiredBy = txData?.from?.hash || "-";
+        }
+      } catch (e) {
+        // handle error if needed
+      }
+      return { ...cert, retiredBy };
     })
   );
 
@@ -35,7 +46,7 @@ export default async function Page() {
               }
             </div>
             <div className="text-gray-500 text-xs">
-              Retired by: {cert.owner?.name || "-"}
+              Retired by: {cert.retiredBy}
             </div>
           </Link>
         ))}
